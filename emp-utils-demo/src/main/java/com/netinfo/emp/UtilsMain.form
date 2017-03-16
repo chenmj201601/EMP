@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.netinfo.emp.UtilsMain">
+  <grid id="27dc6" binding="panel1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1296" height="478"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <tabbedpane id="c70c6" binding="tabRequestToken">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="200" height="200"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="d20a1" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+            <constraints>
+              <tabbedpane title="Untitled"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="8b817" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="98919" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="Api Id"/>
+                    </properties>
+                  </component>
+                  <component id="7b204" class="javax.swing.JTextField" binding="txtApiId">
+                    <constraints/>
+                    <properties>
+                      <columns value="50"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="c5fc2" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="57f84" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="User Token"/>
+                    </properties>
+                  </component>
+                  <component id="e69c8" class="javax.swing.JTextField" binding="txtUserToken">
+                    <constraints/>
+                    <properties>
+                      <columns value="50"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="fa073" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="5855" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="Request Token"/>
+                    </properties>
+                  </component>
+                  <component id="5fe87" class="javax.swing.JTextField" binding="txtRequestToken">
+                    <constraints/>
+                    <properties>
+                      <columns value="50"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="96178" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="e7e28" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="Timestamp"/>
+                    </properties>
+                  </component>
+                  <component id="5cbb" class="javax.swing.JTextField" binding="txtTimestamp">
+                    <constraints/>
+                    <properties>
+                      <columns value="50"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="3910f" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="b0f7" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="Param 01"/>
+                    </properties>
+                  </component>
+                  <component id="4f9d" class="javax.swing.JTextField" binding="txtParam01Name">
+                    <constraints/>
+                    <properties>
+                      <columns value="25"/>
+                    </properties>
+                  </component>
+                  <component id="2a8b5" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="Value"/>
+                    </properties>
+                  </component>
+                  <component id="f236b" class="javax.swing.JTextField" binding="txtParam01Value">
+                    <constraints/>
+                    <properties>
+                      <columns value="25"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="709a3" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="7a753" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="Param 02"/>
+                    </properties>
+                  </component>
+                  <component id="e59a9" class="javax.swing.JTextField" binding="txtParam02Name">
+                    <constraints/>
+                    <properties>
+                      <columns value="25"/>
+                    </properties>
+                  </component>
+                  <component id="88d7b" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="Value"/>
+                    </properties>
+                  </component>
+                  <component id="db26e" class="javax.swing.JTextField" binding="txtParam02Value">
+                    <constraints/>
+                    <properties>
+                      <columns value="25"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="e35d2" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="907b4" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="Param 03"/>
+                    </properties>
+                  </component>
+                  <component id="a06d2" class="javax.swing.JTextField" binding="txtParam03Name">
+                    <constraints/>
+                    <properties>
+                      <columns value="25"/>
+                    </properties>
+                  </component>
+                  <component id="1d436" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="Value"/>
+                    </properties>
+                  </component>
+                  <component id="81a37" class="javax.swing.JTextField" binding="txtParam03Value">
+                    <constraints/>
+                    <properties>
+                      <columns value="25"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="e7cf9" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="e037d" class="javax.swing.JButton" binding="btnGenerate">
+                    <constraints/>
+                    <properties>
+                      <text value="Generate"/>
+                    </properties>
+                  </component>
+                  <component id="e01b4" class="javax.swing.JButton" binding="btnCheck">
+                    <constraints/>
+                    <properties>
+                      <text value="Check"/>
+                    </properties>
+                  </component>
+                  <component id="815ea" class="javax.swing.JButton" binding="btnReset">
+                    <constraints/>
+                    <properties>
+                      <text value="Reset"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
+    </children>
+  </grid>
+</form>

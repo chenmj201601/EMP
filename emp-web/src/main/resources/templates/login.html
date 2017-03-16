@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Enterprise Management Portal</title>
+    <link rel="shortcut icon" href="/images/logo.ico"/>
+    <!--引入bootstrap样式-->
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <!--引入自定义样式-->
+    <link href="/css/site.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/login.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="login-page">
+<div class="container">
+    <div class="row">
+        <div class="dropdown">
+            <button type="button" class="btn dropdown-toggle" id="dropdownLangs" data-toggle="dropdown"
+                    th:text="${langs.get('100001005')?:'Language'}">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownLangs">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="/login?lang_id=1033"
+                       th:text="${langs.get('1000010061033')?:'English'}"></a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="/login?lang_id=2052"
+                       th:text="${langs.get('1000010062052')?:'Chinese'}">简体中文</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 login-form">
+            <form action="/login/dologin" method="post">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <a class="glyphicon glyphicon-user"></a>
+                    </span>
+                    <input class="form-control" type="text" name="account" id="account"
+                           th:placeholder="${langs.get('100001001')?:'Input account'}" required>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <a class="glyphicon glyphicon-lock"></a>
+                    </span>
+                    <input class="form-control" type="password" name="password" id="password"
+                           th:placeholder="${langs.get('100001002')?:'Input password'}" required>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <a class="glyphicon glyphicon-check"></a>
+                    </span>
+                    <input class="form-control" type="text" name="checkcode"
+                           th:placeholder="${langs.get('100001003')?:'Input check code'}"
+                           required>
+                    <span class="input-group-addon">
+                        <img id="imgcheckcode" src="/login/getcheckcode" style="cursor: pointer;"
+                             onclick="reloadcheckcode()">
+                    </span>
+                </div>
+                <div th:unless="${err} eq null">
+                    <p class="text-danger" th:text="${err}"></p>
+                </div>
+                <br>
+                <div>
+                    <p align="center">
+                        <button type="submit" class="btn btn-md btn-primary"
+                                th:text="${langs.get('100001004')?:'Login'}"></button>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/bootstrap/js/jquery.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript">
+    function reloadcheckcode() {
+        $("#imgcheckcode").attr("src", "/login/getcheckcode?rand=" + Math.random());    //要带上一个随机参数，不然图片不会切换
+    }
+</script>
+</body>
+</html>
