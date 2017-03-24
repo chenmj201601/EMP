@@ -8,11 +8,11 @@ package com.netinfo.emp.common;
  * <p>
  * Created by Charley on 2017/3/9.
  */
-public class WebReturn {
+public class WebReturn<T> {
     private boolean result;
-    private Integer code;
+    private int code;
     private String msg;
-    private Object data;
+    private T data;
 
     /**
      * 获取操作结果
@@ -37,7 +37,7 @@ public class WebReturn {
      *
      * @return 返回码
      */
-    public Integer getCode() {
+    public int getCode() {
         return code;
     }
 
@@ -46,7 +46,7 @@ public class WebReturn {
      *
      * @param code 返回码
      */
-    public void setCode(Integer code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
@@ -82,7 +82,13 @@ public class WebReturn {
      *
      * @param data 返回数据
      */
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
+    }
+
+    public WebReturn() {
+        result = true;
+        code = 0;
+        msg = "";
     }
 }

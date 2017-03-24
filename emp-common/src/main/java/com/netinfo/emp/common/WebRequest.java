@@ -85,4 +85,11 @@ public class WebRequest {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+    public WebRequest() {
+        appId = "";
+        userToken = "";
+        requestToken = "";
+        timestamp = "";
+    }
 }

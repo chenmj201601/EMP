@@ -1,8 +1,7 @@
 package com.netinfo.emp.web.service;
 
-import com.netinfo.emp.common.Defines;
 import com.netinfo.emp.common.WebReturn;
-import com.netinfo.emp.core.common.ApiDefine;
+import com.netinfo.emp.core.common.CoreDefine;
 import com.netinfo.emp.utils.WebHelper;
 import com.netinfo.emp.web.feign.CoreClient;
 import org.slf4j.Logger;
@@ -36,7 +35,7 @@ public class IndexService {
     }
 
     public String genUserId() throws Exception {
-        String apiId = String.format("%02d%04d%02d", Defines.MODULE_CORE, ApiDefine.CTL_SID, ApiDefine.FN_SID_GEN);
+        String apiId = String.format("/%s", CoreDefine.PATH_LOGINS);
         String userToken = "abc";
         String resource = "105";
         String middle = "";

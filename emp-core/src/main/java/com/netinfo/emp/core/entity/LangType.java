@@ -1,23 +1,25 @@
 package com.netinfo.emp.core.entity;
 
+import java.util.Map;
+
 /**
  * Project emp-core
  * Package com.netinfo.emp.core.entity
  * <p>
- * Created by Charley on 2017/3/14.
+ * Created by Charley on 2017/3/24.
  */
 public class LangType {
-    private Short id;
+    private int id;
     private String name;
-    private String identity;
+    private String culture;
     private String shortName;
-    private Short code;
+    private int referenceId;
 
-    public Short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Short id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -29,12 +31,12 @@ public class LangType {
         this.name = name;
     }
 
-    public String getIdentity() {
-        return identity;
+    public String getCulture() {
+        return culture;
     }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
+    public void setCulture(String culture) {
+        this.culture = culture;
     }
 
     public String getShortName() {
@@ -45,11 +47,25 @@ public class LangType {
         this.shortName = shortName;
     }
 
-    public Short getCode() {
-        return code;
+    public int getReferenceId() {
+        return referenceId;
     }
 
-    public void setCode(Short code) {
-        this.code = code;
+    public void setReferenceId(int referenceId) {
+        this.referenceId = referenceId;
+    }
+
+    public static LangType fromT(Map<String, Object> map) {
+        LangType langType = new LangType();
+        langType.setId((int) map.get("language_id"));
+        langType.setName(map.get("language_name").toString());
+        if (map.get("language_culture") != null) {
+            langType.setCulture(map.get("language_culture").toString());
+        }
+        if (map.get("short_name") != null) {
+            langType.setCulture(map.get("short_name").toString());
+        }
+        langType.setReferenceId((int) map.get("reference_id"));
+        return langType;
     }
 }

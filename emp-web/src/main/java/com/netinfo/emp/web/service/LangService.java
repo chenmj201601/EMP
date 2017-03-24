@@ -1,10 +1,9 @@
 package com.netinfo.emp.web.service;
 
-import com.netinfo.emp.common.Defines;
 import com.netinfo.emp.common.WebReturn;
-import com.netinfo.emp.core.common.ApiDefine;
+import com.netinfo.emp.core.common.CoreDefine;
 import com.netinfo.emp.utils.WebHelper;
-import com.netinfo.emp.web.entity.SessionLang;
+import com.netinfo.emp.web.WebDefine;
 import com.netinfo.emp.web.feign.CoreClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,37 +29,35 @@ public class LangService {
     @Autowired
     private CoreClient coreClient;
 
-    private Map<String, SessionLang> sessionLangs = new HashMap<>();
+    private Map<Integer, Map<String, String>> langList = new HashMap<>();
+    private Map<String, Integer> sessionLangIds = new HashMap<>();
 
 
-    public void loadLangs(SessionLang sessionLang) {
+    public void loadLangs(Integer langId) {
         try {
-            Map<String, String> langs = sessionLang.getLangs();
-            Integer langId = sessionLang.getLangId();
-            langs.clear();
-            String apiId = String.format("%02d%04d%02d", Defines.MODULE_CORE, ApiDefine.CTL_LANG_INFO, ApiDefine.FN_LANG_INFO_QUERY);
+            Map<String, String> langs = new HashMap<>();
+            String apiId = String.format("/%s", CoreDefine.PATH_LANGUAGES);
             String userToken = "";
             Long timestamp = System.currentTimeMillis();
             String strTimestamp = timestamp.toString();
             String strLangId = langId.toString();
-            String page = "100001";
             Map<String, String> params = new HashMap<>();
-            params.put(ApiDefine.FIELD_LANG_ID, strLangId);
-            params.put(ApiDefine.FIELD_PAGE, page);
+            params.put(CoreDefine.FIELD_LANG_ID, strLangId);
             String requestToken = WebHelper.genRequestToken(apiId, userToken, strTimestamp, params);
             if (coreClient != null) {
-                WebReturn webReturn = coreClient.langQuery(userToken, requestToken, strTimestamp, strLangId, page);
+                WebReturn webReturn = coreClient.langQuery(userToken, requestToken, strTimestamp, strLangId);
                 if (!webReturn.isResult()) {
                     logger.error(String.format("Get langs fail %d %s", webReturn.getCode(), webReturn.getMsg()));
                 } else {
                     if (webReturn.getData() != null) {
-                        List<LinkedHashMap<String, String>> nodes = (List<LinkedHashMap<String, String>>) webReturn.getData();
-                        for (LinkedHashMap<String, String> node : nodes) {
-                            langs.put(node.get("name"), node.get("display"));
+                        List<Map<String, Object>> nodes = (List<Map<String, Object>>) webReturn.getData();
+                        for (Map<String, Object> node : nodes) {
+                            langs.put(node.get(WebDefine.FIELD_LANG_KEY).toString(), node.get(WebDefine.FIELD_LANG_DISPLAY).toString());
                         }
                     }
                 }
             }
+            langList.put(langId, langs);
         } catch (Exception ex) {
             logger.error(ex.getMessage());
             ex.printStackTrace();
@@ -71,31 +67,32 @@ public class LangService {
     public Map<String, String> getLangs(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String sessionId = session.getId();
-        SessionLang sessionLang = sessionLangs.get(sessionId);
-        if (sessionLang == null) {
-            Integer langId = 1033;
+        Integer langId = sessionLangIds.get(sessionId);
+        if (langId == null) {
+            langId = 1033;
             if (request.getHeader("Accept-Language") != null) {
                 String defaultLang = request.getHeader("Accept-Language");
                 if (defaultLang.startsWith("en-US")) {
                     langId = 1033;
                 }
-                if (defaultLang.startsWith("zh-CN")) {
+                if (defaultLang.startsWith("zh-CN")
+                        || defaultLang.startsWith("zh-Hans-CN")) {
                     langId = 2052;
                 }
             }
-            sessionLang = new SessionLang();
-            sessionLang.setLangId(langId);
-            loadLangs(sessionLang);
+            Map<String, String> langs = langList.get(langId);
+            if (langs == null) {
+                loadLangs(langId);
+            }
+            sessionLangIds.put(sessionId, langId);
         }
-        return sessionLang.getLangs();
+        return langList.get(langId);
     }
 
     public void changeLang(Integer langId, HttpServletRequest request) {
+        loadLangs(langId);
         HttpSession session = request.getSession();
         String sessionId = session.getId();
-        SessionLang sessionLang = new SessionLang();
-        sessionLang.setLangId(langId);
-        loadLangs(sessionLang);
-        sessionLangs.put(sessionId, sessionLang);
+        sessionLangIds.put(sessionId, langId);
     }
 }

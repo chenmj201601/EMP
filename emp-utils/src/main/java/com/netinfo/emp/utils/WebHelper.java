@@ -61,7 +61,7 @@ public class WebHelper {
 
         //<editor-fold desc="验证 RequestToken 是否有效，与RequestToken的生成流程一样，生成RequestToken，然后与传入的RequestToken比较">
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("%s=%s", Defines.FIELD_API_ID, apiId));
+        sb.append(String.format("%s=%s", Defines.FIELD_REQUEST_PATH, apiId));
         sb.append(String.format("%s=%s", Defines.FIELD_USER_TOKEN, userToken));
         sb.append(String.format("%s=%s", Defines.FIELD_TIMESTAMP, timestamp));
         List<Map.Entry<String, String>> list = new ArrayList<Map.Entry<String, String>>(listParam.entrySet());
@@ -113,7 +113,7 @@ public class WebHelper {
          * 6、对 str4 做 SHA512 加密得到 RequestToken
          */
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("%s=%s", Defines.FIELD_API_ID, apiId));
+        sb.append(String.format("%s=%s", Defines.FIELD_REQUEST_PATH, apiId));
         sb.append(String.format("%s=%s", Defines.FIELD_USER_TOKEN, userToken));
         sb.append(String.format("%s=%s", Defines.FIELD_TIMESTAMP, timestamp));
         List<Map.Entry<String, String>> list = new ArrayList<Map.Entry<String, String>>(listParam.entrySet());

@@ -26,7 +26,9 @@ public class LangInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        modelAndView.addObject(WebDefine.SESSION_VAR_LANGS, langService.getLangs(request));
+        if(modelAndView!=null){
+            modelAndView.addObject(WebDefine.FIELD_LANGS, langService.getLangs(request));
+        }
         super.postHandle(request, response, handler, modelAndView);
     }
 }

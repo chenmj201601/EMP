@@ -263,7 +263,7 @@ public final class Defines {
      * API 接口编号，在 API 接口表中定义，共 8 位 数字编号
      * 规则：模块编号（2位）+ 控制器编号（4位）+ 方法编号（2位）
      */
-    public static final String FIELD_API_ID = "api_id";
+    public static final String FIELD_REQUEST_PATH = "request_path";
     /**
      * 登录用户的 Token，用户成功登录后，由登录服务生成，并发给客户端保留
      * 规则：SHA256(user_id + login_timestamp + login_key)
@@ -303,7 +303,7 @@ public final class Defines {
      * <p>
      * 角色权限，机构用户，基本资源处理
      */
-    public static final Integer MODULE_CORE = 10;
+    public static final int MODULE_CORE = 11;
 
     //</editor-fold>
 
@@ -311,7 +311,7 @@ public final class Defines {
     /**
      * 请求超时时间，单位：秒，默认 5 分钟
      */
-    public static Integer TIMEOUT_REQUEST = 60 * 5;
+    public static int TIMEOUT_REQUEST = 60 * 5;
     //</editor-fold>
 
     //<editor-fold desc="资源编号定义">
@@ -319,36 +319,36 @@ public final class Defines {
     /**
      * 租户
      */
-    public static final Integer RESOURCE_TENANT = 101;
+    public static final int RESOURCE_TENANT = 101;
     /**
      * 功能操作
      */
-    public static final Integer RESOURCE_OPT = 102;
+    public static final int RESOURCE_OPT = 102;
     /**
      * 角色
      */
-    public static final Integer RESOURCE_ROLE = 103;
+    public static final int RESOURCE_ROLE = 103;
     /**
      * 机构部门
      */
-    public static final Integer RESOURCE_ORG = 104;
+    public static final int RESOURCE_ORG = 104;
     /**
      * 用户
      */
-    public static final Integer RESOURCE_USER = 105;
+    public static final int RESOURCE_USER = 105;
 
     /**
      * 登录流水
      */
-    public static final Integer RESOURCE_LOGIN = 801;
+    public static final int RESOURCE_LOGIN = 801;
     /**
      * 操作日志
      */
-    public static final Integer RESOURCE_OPT_LOG = 802;
+    public static final int RESOURCE_OPT_LOG = 802;
     /**
      * 系统关键记录
      */
-    public static final Integer RESOURCE_KEY_RECORD = 899;
+    public static final int RESOURCE_KEY_RECORD = 899;
 
     //</editor-fold>
 

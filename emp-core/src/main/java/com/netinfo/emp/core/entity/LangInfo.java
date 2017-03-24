@@ -1,33 +1,36 @@
 package com.netinfo.emp.core.entity;
 
+import java.util.Map;
+
 /**
  * Project emp-core
  * Package com.netinfo.emp.core.entity
  * <p>
- * Created by Charley on 2017/3/14.
+ * Created by Charley on 2017/3/24.
  */
 public class LangInfo {
-    private Short langId;
-    private String name;
+    private int langId;
+    private String key;
     private String display;
     private String tip;
-    private String page;
-    private String object;
+    private String pageName;
+    private String objName;
+    private int moduleNumber;
 
-    public Short getLangId() {
+    public int getLangId() {
         return langId;
     }
 
-    public void setLangId(Short langId) {
+    public void setLangId(int langId) {
         this.langId = langId;
     }
 
-    public String getName() {
-        return name;
+    public String getKey() {
+        return key;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getDisplay() {
@@ -46,19 +49,54 @@ public class LangInfo {
         this.tip = tip;
     }
 
-    public String getPage() {
-        return page;
+    public String getPageName() {
+        return pageName;
     }
 
-    public void setPage(String page) {
-        this.page = page;
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
     }
 
-    public String getObject() {
-        return object;
+    public String getObjName() {
+        return objName;
     }
 
-    public void setObject(String object) {
-        this.object = object;
+    public void setObjName(String objName) {
+        this.objName = objName;
+    }
+
+    public int getModuleNumber() {
+        return moduleNumber;
+    }
+
+    public void setModuleNumber(int moduleNumber) {
+        this.moduleNumber = moduleNumber;
+    }
+
+    public static LangInfo fromT(Map<String, Object> map) {
+        LangInfo langInfo = new LangInfo();
+        langInfo.setLangId((int) map.get("language_id"));
+        langInfo.setKey(map.get("message_code").toString());
+        String display = "";
+        if (map.get("display_content1") != null) {
+            display += map.get("display_content1").toString();
+        }
+        if (map.get("display_content2") != null) {
+            display += map.get("display_content2").toString();
+        }
+        langInfo.setDisplay(display);
+        String tip = "";
+        if (map.get("tip_content1") != null) {
+            tip += map.get("tip_content1").toString();
+        }
+        if (map.get("tip_content2") != null) {
+            tip += map.get("tip_content2").toString();
+        }
+        langInfo.setTip(tip);
+        if (map.get("in_page") != null) {
+            langInfo.setPageName(map.get("in_page").toString());
+        }
+        langInfo.setModuleNumber((int) map.get("module_number"));
+        return langInfo;
     }
 }

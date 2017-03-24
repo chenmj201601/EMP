@@ -1,39 +1,43 @@
 package com.netinfo.emp.core.entity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * Project emp-core
  * Package com.netinfo.emp.core.entity
  * <p>
- * Created by Charley on 2017/3/11.
+ * Created by Charley on 2017/3/23.
  */
 public class Login {
-    private Long id;
-    private Long userId;
+    private long id;
+    private long userId;
     private Date loginTime;
-    private String loginResult;
-    private String loginToken;
-    private String loginHost;
-    private String loginIP;
+    private String result;
+    private String token;
+    private String host;
+    private String address;
     private boolean isExited;
     private String exitedMethod;
-    private Date exitTime;
+    private Date exitedTime;
     private Date lastActiveTime;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -45,36 +49,36 @@ public class Login {
         this.loginTime = loginTime;
     }
 
-    public String getLoginResult() {
-        return loginResult;
+    public String getResult() {
+        return result;
     }
 
-    public void setLoginResult(String loginResult) {
-        this.loginResult = loginResult;
+    public void setResult(String result) {
+        this.result = result;
     }
 
-    public String getLoginToken() {
-        return loginToken;
+    public String getToken() {
+        return token;
     }
 
-    public void setLoginToken(String loginToken) {
-        this.loginToken = loginToken;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getLoginHost() {
-        return loginHost;
+    public String getHost() {
+        return host;
     }
 
-    public void setLoginHost(String loginHost) {
-        this.loginHost = loginHost;
+    public void setHost(String host) {
+        this.host = host;
     }
 
-    public String getLoginIP() {
-        return loginIP;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLoginIP(String loginIP) {
-        this.loginIP = loginIP;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public boolean isExited() {
@@ -93,12 +97,12 @@ public class Login {
         this.exitedMethod = exitedMethod;
     }
 
-    public Date getExitTime() {
-        return exitTime;
+    public Date getExitedTime() {
+        return exitedTime;
     }
 
-    public void setExitTime(Date exitTime) {
-        this.exitTime = exitTime;
+    public void setExitedTime(Date exitedTime) {
+        this.exitedTime = exitedTime;
     }
 
     public Date getLastActiveTime() {
@@ -107,5 +111,37 @@ public class Login {
 
     public void setLastActiveTime(Date lastActiveTime) {
         this.lastActiveTime = lastActiveTime;
+    }
+
+    public static Login fromT(Map<String, Object> map) throws ParseException {
+        Login login = new Login();
+        login.setId((long) map.get("system_id"));
+        login.setUserId((long) map.get("account_id"));
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        login.setLoginTime(format.parse(map.get("login_time").toString()));
+        login.setResult(map.get("login_result").toString());
+        login.setToken(map.get("login_token").toString());
+        if (map.get("login_host") != null) {
+            login.setHost(map.get("login_host").toString());
+        }
+        if (map.get("login_address") != null) {
+            login.setAddress(map.get("login_address").toString());
+        }
+        if (map.get("is_exited") != null && map.get("is_exited").toString() == "1") {
+            login.setExited(true);
+        } else {
+            login.setExited(false);
+        }
+        if (map.get("exited_method") != null) {
+            login.setExitedMethod(map.get("exited_method").toString());
+        }
+        if (map.get("exited_time") != null) {
+            login.setExitedTime(format.parse(map.get("exited_method").toString()));
+        }
+        if (map.get("last_interactive_time") != null) {
+            login.setLastActiveTime(format.parse(map.get("last_interactive_time").toString()));
+        }
+        return login;
     }
 }

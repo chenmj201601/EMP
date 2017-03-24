@@ -3,14 +3,16 @@ package com.netinfo.emp;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.netinfo.emp.common.Defines;
-import com.netinfo.emp.common.EncryptionMode;
-import com.netinfo.emp.encryptions.SHAEncryption;
+import com.netinfo.emp.common.WebReturn;
+import com.netinfo.emp.utils.WebHelper;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Project emp-utils-demo
@@ -64,10 +66,6 @@ public class UtilsMain {
             String strParam01 = txtParam01Name.getText();
             String strParam02 = txtParam02Name.getText();
             String strParam03 = txtParam03Name.getText();
-            StringBuilder sb = new StringBuilder();
-            sb.append(String.format("%s=%s", Defines.FIELD_API_ID, strApiId));
-            sb.append(String.format("%s=%s", Defines.FIELD_USER_TOKEN, strUserToken));
-            sb.append(String.format("%s=%s", Defines.FIELD_TIMESTAMP, strTimestamp));
             Map<String, String> listParam = new HashMap<>();
             if (!"".equals(strParam01)) {
                 listParam.put(strParam01, txtParam01Value.getText());
@@ -76,15 +74,9 @@ public class UtilsMain {
                 listParam.put(strParam02, txtParam02Value.getText());
             }
             if (!"".equals(strParam03)) {
-                listParam.put(strParam03, txtParam02Value.getText());
+                listParam.put(strParam03, txtParam03Value.getText());
             }
-            List<Map.Entry<String, String>> list = new ArrayList<>(listParam.entrySet());
-            Collections.sort(list, Comparator.comparing(Map.Entry::getKey));
-            for (String key : listParam.keySet()) {
-                sb.append(String.format("%s=%s", key, listParam.get(key)));
-            }
-            sb.append(Defines.REQUEST_KEY);
-            String requestToken = SHAEncryption.encryptString(sb.toString(), EncryptionMode.SHA256_00_HEX_ASCII);
+            String requestToken = WebHelper.genRequestToken(strApiId, strUserToken, strTimestamp, listParam);
             txtRequestToken.setText(requestToken);
         } catch (Exception ex) {
             txtRequestToken.setText(ex.getMessage());
@@ -100,10 +92,11 @@ public class UtilsMain {
             String strParam01 = txtParam01Name.getText();
             String strParam02 = txtParam02Name.getText();
             String strParam03 = txtParam03Name.getText();
-            StringBuilder sb = new StringBuilder();
-            sb.append(String.format("%s=%s", Defines.FIELD_API_ID, strApiId));
-            sb.append(String.format("%s=%s", Defines.FIELD_USER_TOKEN, strUserToken));
-            sb.append(String.format("%s=%s", Defines.FIELD_TIMESTAMP, strTimestamp));
+            List<String> requests = new ArrayList<>();
+            requests.add(strApiId);
+            requests.add(strUserToken);
+            requests.add(strRequestToken);
+            requests.add(strTimestamp);
             Map<String, String> listParam = new HashMap<>();
             if (!"".equals(strParam01)) {
                 listParam.put(strParam01, txtParam01Value.getText());
@@ -112,16 +105,10 @@ public class UtilsMain {
                 listParam.put(strParam02, txtParam02Value.getText());
             }
             if (!"".equals(strParam03)) {
-                listParam.put(strParam03, txtParam02Value.getText());
+                listParam.put(strParam03, txtParam03Value.getText());
             }
-            List<Map.Entry<String, String>> list = new ArrayList<>(listParam.entrySet());
-            Collections.sort(list, Comparator.comparing(Map.Entry::getKey));
-            for (String key : listParam.keySet()) {
-                sb.append(String.format("%s=%s", key, listParam.get(key)));
-            }
-            sb.append(Defines.REQUEST_KEY);
-            String requestToken = SHAEncryption.encryptString(sb.toString(), EncryptionMode.SHA256_00_HEX_ASCII);
-            if (strRequestToken.equals(requestToken)) {
+            WebReturn webReturn = WebHelper.checkRequestToken(requests, listParam);
+            if (webReturn.isResult()) {
                 txtRequestToken.setText("OK");
             } else {
                 txtRequestToken.setText("Fail");
